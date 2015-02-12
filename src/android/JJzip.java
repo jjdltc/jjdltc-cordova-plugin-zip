@@ -38,6 +38,8 @@ public class JJzip extends CordovaPlugin {
         switch (ACTIONS.valueOf(action)) {
             case zip:
                 actionType = "compress";
+                compressZip makeZip     = new compressZip(validOptions);
+                result                  = makeZip.zip();
             break;
             case unzip:
                 actionType = "decompress";
@@ -92,7 +94,7 @@ public class JJzip extends CordovaPlugin {
         options.put("source", source);
         
         JSONObject extraOptObj  = args.optJSONObject(1);
-        String[] extraOptArr    = new String[]{"target"};
+        String[] extraOptArr    = new String[]{"target","name"};
                 
         for (int i = 0; i < extraOptArr.length; i++) {
             String strOpt   = extraOptObj.optString(extraOptArr[i]);
@@ -107,22 +109,24 @@ public class JJzip extends CordovaPlugin {
     }
     
     private JSONObject validPaths(JSONObject options) throws JSONException{
-        String sourcePath   = options.optString("source");
+        String sourceEntry  = options.optString("source");
         String targetPath   = options.optString("target");
         
         if(targetPath.isEmpty()){
-            targetPath      = sourcePath.substring(0, sourcePath.lastIndexOf("/")+1);
+            targetPath      = sourceEntry.substring(0, sourceEntry.lastIndexOf("/")+1);
         }
 
-        sourcePath          = sourcePath.replace("file://", "");
+        sourceEntry         = sourceEntry.replace("file://", "");
         targetPath          = targetPath.replace("file://", "");
+        String sourcePath   = sourceEntry.substring(0, sourceEntry.lastIndexOf("/")+1);
         
-        if(sourcePath.isEmpty() || targetPath.isEmpty()){
+        if(sourceEntry.isEmpty() || targetPath.isEmpty() || sourcePath.isEmpty()){
             return null;
         }
         
-        options.put("source", sourcePath);
-        options.put("target", targetPath);
+        options.put("sourceEntry", sourceEntry);
+        options.put("sourcePath", sourcePath);
+        options.put("targetPath", targetPath);
 
         return options;
     }
