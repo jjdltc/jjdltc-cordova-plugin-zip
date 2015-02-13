@@ -37,12 +37,12 @@ public class JJzip extends CordovaPlugin {
         
         switch (ACTIONS.valueOf(action)) {
             case zip:
-                actionType = "compress";
+                actionType              = "compress";
                 compressZip makeZip     = new compressZip(validOptions);
                 result                  = makeZip.zip();
             break;
             case unzip:
-                actionType = "decompress";
+                actionType              = "decompress";
                 decompressZip unZip     = new decompressZip(validOptions);
                 result                  = unZip.unZip();
             break;
@@ -108,6 +108,12 @@ public class JJzip extends CordovaPlugin {
         return options;
     }
     
+    /**
+     * 
+     * @param options The passed options merges with the extra params
+     * @return A Valid JSONObject with the need it options to execute and the merge paths or null some of the paths are empty
+     * @throws JSONException
+     */
     private JSONObject validPaths(JSONObject options) throws JSONException{
         String sourceEntry  = options.optString("source");
         String targetPath   = options.optString("target");
@@ -119,14 +125,17 @@ public class JJzip extends CordovaPlugin {
         sourceEntry         = sourceEntry.replace("file://", "");
         targetPath          = targetPath.replace("file://", "");
         String sourcePath   = sourceEntry.substring(0, sourceEntry.lastIndexOf("/")+1);
+        String sourceName   = sourceEntry.replace(sourcePath, "");
+        sourceName          = (sourceEntry.lastIndexOf(".")==-1)?sourceName:sourceName.substring(0, sourceName.lastIndexOf("."));
         
-        if(sourceEntry.isEmpty() || targetPath.isEmpty() || sourcePath.isEmpty()){
+        if(sourceEntry.isEmpty() || targetPath.isEmpty() || sourcePath.isEmpty() || sourceName.isEmpty()){
             return null;
         }
         
         options.put("sourceEntry", sourceEntry);
         options.put("sourcePath", sourcePath);
         options.put("targetPath", targetPath);
+        options.put("sourceName", sourceName);
 
         return options;
     }
