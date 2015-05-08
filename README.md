@@ -14,14 +14,14 @@ The object `JJzip` is expose in the `window`:
 
 ### Methonds
 
-* `zip(file, options, successCallback, errorCallback)` - Allow to zip a file or folder
+* `zip(file [, options, successCallback, errorCallback])` - Allow to zip a file or folder
     * `file` - Path/To/File/Or/Folder (Expect a cordova style path file://)
     * `options` - Compression options in a JS object format (Key:"value")
         * __target__: Path/To/Place/Result
         * __name__: Name of the resulted zip (without the .zip)
     * `successCallback` - Function to call in plugin success
     * `errorCallback` - Function to call in plugin error
-* `unzip(file, options, successCallback, errorCallback)` - Allow to unzip a zip file
+* `unzip(file [, options, successCallback, errorCallback])` - Allow to unzip a zip file
     * `file` - Path/To/File.zip (Expect a cordova style path file://)
     * `options` - Extra options in a JS object format (Key:"value")
         * __target__: Path/To/Place/Result
