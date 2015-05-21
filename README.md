@@ -7,7 +7,7 @@ Platforms supported
 
 * android
 
-Easy Ese  
+Easy Use  
 ---  
   
 The object `JJzip` is expose in the `window`:

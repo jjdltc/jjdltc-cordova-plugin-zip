@@ -8,17 +8,9 @@ var argscheck   	= require('cordova/argscheck'),
     exec        	= require('cordova/exec'),
     cordova     	= require('cordova');
 
-/**
- * @TODO Desc
- * 
- * @constructor
- */
-function JJzip() {
-
-}
+function JJzip() { }
 
 /**
- * @TODO Desc
  *
  * @param {String} Path to the file or directory to zip
  * @param {String} Object with options of the action like
@@ -35,7 +27,6 @@ JJzip.prototype.zip = function(file, options, successCallback, errorCallback) {
 };
 
 /**
- * @TODO Desc
  *
  * @param {String} Path to the zip file
  * @param {String} Object with options of the action like
