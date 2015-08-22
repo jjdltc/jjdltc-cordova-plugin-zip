@@ -1,9 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
 The MIT License (MIT)
 Copyright (c) 2015 Joel De La Torriente - jjdltc - http://www.jjdltc.com/
 See a full copy of license in the root folder of the project 
 -->
-<?xml version="1.0" encoding="UTF-8"?>
 
 <plugin xmlns="http://www.jjdltc.com"
     id="org.jjdltc.cordova.plugin.zip"
