@@ -15,7 +15,7 @@ The object `JJzip` is expose in the `window`:
 ### Methonds
 
 * `zip(file [, options, successCallback, errorCallback])` - Allow to zip a file or folder
-    * `file` - Path/To/File/Or/Folder (Expect a cordova style path file://)
+    * `file` - Path/To/File/Or/Folder
     * `options` - Compression options in a JS object format (Key:"value")
         * __target__: Path/To/Place/Result
         * __name__: Name of the resulted zip (without the .zip)

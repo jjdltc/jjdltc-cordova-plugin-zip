@@ -3,7 +3,7 @@
  * Copyright (c) 2015 Joel De La Torriente - jjdltc - http://www.jjdltc.com/
  * See a full copy of license in the root folder of the project
  */
-package org.jjdltc.cordova.plugin.zip;
+package com.jjdltc.cordova.plugin.zip;
 
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaPlugin;
@@ -126,7 +126,7 @@ public class JJzip extends CordovaPlugin {
         targetPath          = targetPath.replace("file://", "");
         String sourcePath   = sourceEntry.substring(0, sourceEntry.lastIndexOf("/")+1);
         String sourceName   = sourceEntry.replace(sourcePath, "");
-        sourceName          = (sourceEntry.lastIndexOf(".")==-1)?sourceName:sourceName.substring(0, sourceName.lastIndexOf("."));
+        sourceName          = (sourceName.lastIndexOf(".")==-1)?sourceName:sourceName.substring(0, sourceName.lastIndexOf("."));
         
         if(sourceEntry.isEmpty() || targetPath.isEmpty() || sourcePath.isEmpty() || sourceName.isEmpty()){
             return null;

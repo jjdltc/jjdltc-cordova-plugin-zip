@@ -5,15 +5,16 @@ Copyright (c) 2015 Joel De La Torriente - jjdltc - http://www.jjdltc.com/
 See a full copy of license in the root folder of the project 
 -->
 
-<plugin xmlns="http://www.jjdltc.com"
-    id="org.jjdltc.cordova.plugin.zip"
-    version="0.0.1">
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
+    id="com.jjdltc.cordova.plugin.zip"
+    version="0.0.2">
     <name>JJzip</name>
     <description>Cordova zip compress and decompress</description>
     <author>JJDLTC - Joel De La Torriente</author>
     <license>The MIT License (MIT)</license>    
     <keywords>cordova,zip,compress,decompress,unzip</keywords>
     <repo>https://github.com/jjdltc/jjdltc-cordova-plugin-zip.git</repo>
+    <issue>https://github.com/jjdltc/jjdltc-cordova-plugin-zip/issues</issue>
 
     <engines>
         <engine name="cordova" version=">=3.6.0" />
@@ -27,13 +28,13 @@ See a full copy of license in the root folder of the project
     <platform name="android">
         <config-file target="res/xml/config.xml" parent="/*">
             <feature name="JJzip" >
-                <param name="android-package" value="org.jjdltc.cordova.plugin.zip.JJzip"/>
+                <param name="android-package" value="com.jjdltc.cordova.plugin.zip.JJzip"/>
             </feature>
         </config-file>
 
-        <source-file src="src/android/JJzip.java" target-dir="src/org/jjdltc/cordova/plugin/zip" />
-        <source-file src="src/android/compressZip.java" target-dir="src/org/jjdltc/cordova/plugin/zip" />
-        <source-file src="src/android/decompressZip.java" target-dir="src/org/jjdltc/cordova/plugin/zip" />
+        <source-file src="src/android/JJzip.java" target-dir="src/com/jjdltc/cordova/plugin/zip" />
+        <source-file src="src/android/compressZip.java" target-dir="src/com/jjdltc/cordova/plugin/zip" />
+        <source-file src="src/android/decompressZip.java" target-dir="src/com/jjdltc/cordova/plugin/zip" />
     </platform>
     <!-- Platform ANDROID Ends -->
     
