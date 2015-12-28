@@ -7,11 +7,11 @@ See a full copy of license in the root folder of the project
 
 <plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
     id="com.jjdltc.cordova.plugin.zip"
-    version="0.0.2">
+    version="0.0.3">
     <name>JJzip</name>
     <description>Cordova zip compress and decompress</description>
     <author>JJDLTC - Joel De La Torriente</author>
-    <license>The MIT License (MIT)</license>    
+    <license>MIT License (MIT)</license>    
     <keywords>cordova,zip,compress,decompress,unzip</keywords>
     <repo>https://github.com/jjdltc/jjdltc-cordova-plugin-zip.git</repo>
     <issue>https://github.com/jjdltc/jjdltc-cordova-plugin-zip/issues</issue>

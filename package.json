@@ -1,6 +1,6 @@
 {
   "name": "cordova-zip-plugin",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Cordova zip compress and decompress",
   "cordova": {
     "id": "com.jjdltc.cordova.plugin.zip",
@@ -28,7 +28,7 @@
     }
   ],
   "author": "Joel De La Torriente - jjdltc",
-  "license": "The MIT License (MIT)",
+  "license": "MIT License (MIT)",
   "bugs": {
     "url": "https://github.com/jjdltc/jjdltc-cordova-plugin-zip/issues"
   },
