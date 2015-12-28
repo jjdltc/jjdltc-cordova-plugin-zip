@@ -7,6 +7,11 @@ Platforms supported
 
 * android
 
+Installation
+---
+
+`cordova plugin add cordova-zip-plugin`
+
 Easy Use  
 ---  
   
