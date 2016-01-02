@@ -1,10 +1,11 @@
 Zip / UnZip plugin
 ===
 
-A simple compress plugin that allow zip/unzip files and folders
+Cordova plugin to compress and decompress (__zip__/__unzip__) files and folders in `*.zip` format.
+
+__Contributors are welcome.__
 
 Platforms supported
-
 * android
 
 Installation
