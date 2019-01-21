@@ -62,5 +62,5 @@ Or To UnZip
 There is a big TODO list, but in resume  
   
 * Write a better documentation
-* Add iOS Support (Be Patient)
+* Add iOS Support (Partial support, only unzip)
 * Should handle some file manipulation (Like remove after zip the file?)

@@ -1,6 +1,6 @@
 /*
  * The MIT License (MIT)
- * Copyright (c) 2015 Joel De La Torriente - jjdltc - http://www.jjdltc.com/
+ * Copyright (c) 2015 Joel De La Torriente - jjdltc - https://github.com/jjdltc
  * See a full copy of license in the root folder of the project
  */
 package com.jjdltc.cordova.plugin.zip;
