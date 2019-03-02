@@ -51,12 +51,16 @@ public class decompressZip {
         ZipEntry entry      = zipFl.getNextEntry();
         
         while (entry != null) {
-            String filePath = actualTargetPath + File.separator + entry.getName();
+            String filePath = actualTargetPath + entry.getName();
             if (entry.isDirectory()) {
                 File path = new File(filePath);
                 path.mkdir();
             } else {
-                extractFile(zipFl, filePath);
+                File file = new File(filePath);
+                file.getParentFile().mkdirs();
+                if (file.exists() || file.createNewFile()) {
+                    extractFile(zipFl, filePath);
+                }
             }
             zipFl.closeEntry();
             entry = zipFl.getNextEntry();

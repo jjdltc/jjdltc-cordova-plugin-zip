@@ -11,6 +11,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class JJzip extends CordovaPlugin {
 
     private enum ACTIONS {
@@ -30,7 +33,9 @@ public class JJzip extends CordovaPlugin {
         boolean result          = true;
         String actionType       = "";
         JSONObject validOptions = validOptions(args);
-        
+
+        JSONArray directoriesToBeSkipped  = args.optJSONArray(2);
+        JSONArray filesToBeSkipped  = args.optJSONArray(3);
         if(validOptions==null){
             this.processResponse(callbackContext, false, "Some parameters were missed - Missed file path -");
         }
@@ -38,7 +43,7 @@ public class JJzip extends CordovaPlugin {
         switch (ACTIONS.valueOf(action)) {
             case zip:
                 actionType              = "compress";
-                compressZip makeZip     = new compressZip(validOptions);
+                compressZip makeZip     = new compressZip(validOptions, toList(directoriesToBeSkipped),toList(filesToBeSkipped));
                 result                  = makeZip.zip();
             break;
             case unzip:
@@ -92,6 +97,7 @@ public class JJzip extends CordovaPlugin {
         }
         
         options.put("source", source);
+
         
         JSONObject extraOptObj  = args.optJSONObject(1);
         String[] extraOptArr    = new String[]{"target","name"};
@@ -103,6 +109,7 @@ public class JJzip extends CordovaPlugin {
                 options.put("useExtra", true);
             }
         }
+
         options = validPaths(options);
         
         return options;
@@ -117,7 +124,7 @@ public class JJzip extends CordovaPlugin {
     private JSONObject validPaths(JSONObject options) throws JSONException{
         String sourceEntry  = options.optString("source");
         String targetPath   = options.optString("target");
-        
+
         if(targetPath.isEmpty()){
             targetPath      = sourceEntry.substring(0, sourceEntry.lastIndexOf("/")+1);
         }
@@ -138,5 +145,14 @@ public class JJzip extends CordovaPlugin {
         options.put("sourceName", sourceName);
 
         return options;
+    }
+
+    private List toList(JSONArray array) throws JSONException {
+        int length = array.length();
+        List<String> values = new ArrayList();
+        for (int i = 0; i < length; i++) {
+            values.add(array.getString(i));
+        }
+        return values;
     }
 }
