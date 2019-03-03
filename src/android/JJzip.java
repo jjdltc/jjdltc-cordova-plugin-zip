@@ -34,8 +34,7 @@ public class JJzip extends CordovaPlugin {
         String actionType       = "";
         JSONObject validOptions = validOptions(args);
 
-        JSONArray directoriesToBeSkipped  = args.optJSONArray(2);
-        JSONArray filesToBeSkipped  = args.optJSONArray(3);
+
         if(validOptions==null){
             this.processResponse(callbackContext, false, "Some parameters were missed - Missed file path -");
         }
@@ -43,7 +42,7 @@ public class JJzip extends CordovaPlugin {
         switch (ACTIONS.valueOf(action)) {
             case zip:
                 actionType              = "compress";
-                compressZip makeZip     = new compressZip(validOptions, toList(directoriesToBeSkipped),toList(filesToBeSkipped));
+                compressZip makeZip     = new compressZip(args);
                 result                  = makeZip.zip();
             break;
             case unzip:
@@ -132,6 +131,7 @@ public class JJzip extends CordovaPlugin {
         sourceEntry         = sourceEntry.replace("file://", "");
         targetPath          = targetPath.replace("file://", "");
         String sourcePath   = sourceEntry.substring(0, sourceEntry.lastIndexOf("/")+1);
+        sourcePath          = removeLastChar(sourcePath);
         String sourceName   = sourceEntry.replace(sourcePath, "");
         sourceName          = (sourceName.lastIndexOf(".")==-1)?sourceName:sourceName.substring(0, sourceName.lastIndexOf("."));
         
@@ -145,6 +145,10 @@ public class JJzip extends CordovaPlugin {
         options.put("sourceName", sourceName);
 
         return options;
+    }
+
+    private static String removeLastChar(String str) {
+        return str.substring(0, str.length() - 1);
     }
 
     private List toList(JSONArray array) throws JSONException {

@@ -32,6 +32,7 @@ See a full copy of license in the root folder of the project
         <source-file src="src/android/JJzip.java" target-dir="src/com/jjdltc/cordova/plugin/zip" />
         <source-file src="src/android/compressZip.java" target-dir="src/com/jjdltc/cordova/plugin/zip" />
         <source-file src="src/android/decompressZip.java" target-dir="src/com/jjdltc/cordova/plugin/zip" />
+        <source-file src="src/android/Compress.java" target-dir="src/com/jjdltc/cordova/plugin/zip" />
     </platform>
 
     <platform name="ios">

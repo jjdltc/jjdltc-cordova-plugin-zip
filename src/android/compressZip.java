@@ -28,17 +28,23 @@ public class compressZip {
     private String sourcePath = "";
     private String sourceName = "";
     private String targetName = "";
+    private String source = "";
+    private String zipFile = "";
     private List<String> directoriesToBeSkipped;
     private List<String> filesToBeSkipped;
 
-    public compressZip(JSONObject options, List<String> directoriesToBeSkipped, List<String> filesToBeSkipped) {
-        this.sourceEntry = options.optString("sourceEntry");
-        this.targetPath = options.optString("targetPath");
-        this.sourcePath = options.optString("sourcePath");
-        this.sourceName = options.optString("sourceName");
-        this.targetName = (options.optString("name").isEmpty()) ? this.sourceName : options.optString("name");
-        this.directoriesToBeSkipped = directoriesToBeSkipped;
-        this.filesToBeSkipped = filesToBeSkipped;
+    public compressZip(JSONArray args) {
+         source       = args.optString(0).replace("file://", "");
+        JSONObject extraOptObj  = args.optJSONObject(1);
+         zipFile   = extraOptObj.optString("target").replace("file://", "");
+        try {
+            this.directoriesToBeSkipped =  toList(args.optJSONArray(2));
+            this.filesToBeSkipped = toList(args.optJSONArray(3));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        };
+
+
     }
 
     private static String getLastPathComponent(String sourceFolderPath) {
@@ -54,7 +60,8 @@ public class compressZip {
      */
     public boolean zip() {
         try {
-            this.makeZip(targetPath + this.targetName + ".ecar", this.sourceEntry, new ArrayList<>(), new ArrayList<>());
+            Compress.zip(new File(source),new File(zipFile),directoriesToBeSkipped,filesToBeSkipped);
+//            this.makeZip(targetPath + this.targetName + ".ecar", this.sourceEntry, new ArrayList<>(), new ArrayList<>());
             return true;
         } catch (Exception e) {
             e.printStackTrace();
