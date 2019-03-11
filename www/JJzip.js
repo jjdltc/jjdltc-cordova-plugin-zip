@@ -36,7 +36,6 @@ JJzip.prototype.zip = function(file, options, directoriesTobeSkipped, filesTobeS
  * @param {Function} errorCallback The function to call when there is an error getting the heading data. (OPTIONAL)
  */
 JJzip.prototype.unzip = function(file, options, successCallback, errorCallback) {
-    argscheck.checkArgs('sOAAFF', 'JJzip.unzip', arguments);
     exec(successCallback, errorCallback, "JJzip", "unzip", [file, options]);
 };
 
