@@ -6,9 +6,9 @@
 
 var argscheck       = require('cordova/argscheck'),
     exec            = require('cordova/exec');
-
+console.log('Testing','Ouside', window['SunbirdSdk']);
 function JJzip() { }
-
+console.log('Testing','Inside', window['SunbirdSdk']);
 /**
  *
  * @param {String} Path to the file or directory to zip
