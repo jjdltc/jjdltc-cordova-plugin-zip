@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://jjdltc@github.com/jjdltc/jjdltc-cordova-plugin-zip.git"
+    "url": "git+https://github.com/swayangjit/jjdltc-cordova-plugin-zip.git"
   },
   "keywords": [
     "cordova",
