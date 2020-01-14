@@ -45,6 +45,16 @@ See a full copy of license in the root folder of the project
         <source-file src="src/ios/JJzip.m" />
 
         <framework src="libz.tbd" />
-        <framework src="SSZipArchive" type="podspec" spec="~> 2.1.4" />
+<!--         <framework src="SSZipArchive" type="podspec" spec="~> 2.1.4" /> -->
+
+        <podspec>
+            <config>
+                <source url="https://github.com/CocoaPods/Specs.git"/>
+            </config>
+            <pods use-frameworks="true">
+                <pod name="SSZipArchive" spec="~> 2.1.4" />
+            </pods>
+        </podspec>
+
     </platform>
 </plugin>
