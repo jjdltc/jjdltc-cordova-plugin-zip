@@ -6,13 +6,25 @@
 
 #import "JJzip.h"
 #import <Cordova/CDV.h>
-#import <ZipArchive/SSZipArchive.h>
 
 @implementation JJzip
 
 - (void)zip:(CDVInvokedUrlCommand*)command {
-    CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:@"Hi compress"];
-    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];    
+    NSString *fileToBeZipped = [[command argumentAtIndex:0] stringByReplacingOccurrencesOfString:@"file://" withString:@""];
+    NSData *targetOptions = [command argumentAtIndex:1];
+    NSString *targetPath = [[targetOptions valueForKey:@"target"] stringByReplacingOccurrencesOfString:@"file://" withString:@""];
+
+    NSString *zipPath = [NSString stringWithFormat:@"%@%@.zip", targetPath, [targetOptions valueForKey:@"name"]];
+    
+    BOOL success = [SSZipArchive createZipFileAtPath:zipPath withContentsOfDirectory:fileToBeZipped];
+    
+    if (success) {
+        CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:@"Compress success"];
+        [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+    } else {
+        CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"Compress error"];
+        [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+    }
 }
 
 - (void)unzip:(CDVInvokedUrlCommand*)command {

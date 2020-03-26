@@ -5,6 +5,7 @@
  */
 
 #import <Cordova/CDVPlugin.h>
+#import "SSZipArchive.h"
 
 @interface JJzip : CDVPlugin
 

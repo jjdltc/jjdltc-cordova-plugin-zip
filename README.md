@@ -6,7 +6,8 @@ Cordova plugin to compress and decompress (__zip__/__unzip__) files and folders 
 __Contributors are welcome.__
 
 Platforms supported
-* android
+* Android
+*iOS
 
 Installation
 ---
@@ -21,7 +22,7 @@ The object `JJzip` is expose in the `window`:
 ### Methonds
 
 * `zip(file [, options, successCallback, errorCallback])` - Allow to zip a file or folder
-    * `file` - Path/To/File/Or/Folder
+    * `file` - Path/To/File/Or/Folder (Expect a cordova style path file://)
     * `options` - Compression options in a JS object format (Key:"value")
         * __target__: Path/To/Place/Result
         * __name__: Name of the resulted zip (without the .zip)
@@ -37,30 +38,31 @@ The object `JJzip` is expose in the `window`:
 ### Use Example  
 
 To Zip a folder
-```
-    var PathToFileInString  = cordova.file.externalRootDirectory+"HereIsMyFolder",
-        PathToResultZip     = cordova.file.externalRootDirectory;
-    JJzip.zip(PathToFileInString, {target:PathToResultZip,name:"SuperZip"},function(data){
-        /* Wow everiting goes good, but just in case verify data.success*/
-    },function(error){
-        /* Wow something goes wrong, check the error.message */
-    })
+```javascript
+let fileToBeZipped  = "file:///Path/To/File/Or/Folder";
+let PathToResultZip = cordova.file.cacheDirectory;
+
+JJzip.zip(fileToBeZipped, { target: PathToResultZip, name: "SuperZip" }, function(data) {
+    /* Wow everiting goes good, but just in case verify data.success*/
+}, function(error) {
+    /* Wow something goes wrong, check the error.message */
+});
 ```  
 
 Or To UnZip  
 
-```
-    var PathToFileInString  = cordova.file.externalRootDirectory+"HereIsMyFile.zip",
-        PathToResultZip     = cordova.file.externalRootDirectory;
-    JJzip.unzip(PathToFileInString, {target:PathToResultZip},function(data){
-        /* Wow everything goes good, but just in case verify data.success */
-    },function(error){
-        /* Wow something goes wrong, check the error.message */
-    })
+```javascript
+let zippedPath  = "file:///Path/To/File.zip";
+let PathToResultZip = cordova.file.cacheDirectory;
+
+JJzip.unzip(zippedPath, { target: PathToResultZip }, function(data) {
+    /* Wow everything goes good, but just in case verify data.success */
+}, function(error) {
+    /* Wow something goes wrong, check the error.message */
+});
 ```
 
 There is a big TODO list, but in resume  
   
 * Write a better documentation
-* Add iOS Support (Partial support, only unzip)
 * Should handle some file manipulation (Like remove after zip the file?)
