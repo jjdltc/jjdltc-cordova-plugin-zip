@@ -43,7 +43,7 @@ See a full copy of license in the root folder of the project
 
         <header-file src="src/ios/JJzip.h" />
         <source-file src="src/ios/JJzip.m" />
-        <header-file src="src/ios/SSZipCommon.h"/>
+        <header-file src="src/ios/SSZipCommon.h" target-dir="Plugins/minizip" />
         <header-file src="src/ios/ZipArchive.h" target-dir="Plugins/minizip" />
         <source-file src="src/ios/SSZipArchive.m" target-dir="Plugins/minizip" />
         <header-file src="src/ios/SSZipArchive.h" target-dir="Plugins/minizip" />
