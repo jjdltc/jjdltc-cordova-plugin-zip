@@ -44,18 +44,26 @@ public class decompressZip {
     public boolean doUnZip(String actualTargetPath) throws IOException{
         File target = new File(actualTargetPath);
         if (!target.exists()) {
-            target.mkdir();
+            target.mkdirs();
         }
         
         ZipInputStream zipFl= new ZipInputStream(new FileInputStream(this.sourceEntry));
         ZipEntry entry      = zipFl.getNextEntry();
         
         while (entry != null) {
-            String filePath = actualTargetPath + File.separator + entry.getName();
+            String filePath = actualTargetPath + (actualTargetPath.endsWith("/") ? entry.getName() : File.separator + entry.getName());
             if (entry.isDirectory()) {
+                //This part doesn't seem to be fired
                 File path = new File(filePath);
                 path.mkdir();
             } else {
+                //That is why we check here if the target dir exists
+                File targetDir = new File(filePath.substring(0, filePath.lastIndexOf("/")));
+
+                if (!targetDir.exists()) {
+                    targetDir.mkdirs();
+                }
+                
                 extractFile(zipFl, filePath);
             }
             zipFl.closeEntry();
