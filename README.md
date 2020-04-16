@@ -6,7 +6,8 @@ Cordova plugin to compress and decompress (__zip__/__unzip__) files and folders 
 __Contributors are welcome.__
 
 Platforms supported
-* android
+* __android__
+* __iOS__ (On top of: [SSZipArchive](https://cocoapods.org/pods/SSZipArchive "In case you want to be curious").)
 
 Installation
 ---
@@ -20,7 +21,7 @@ The object `JJzip` is expose in the `window`:
 
 ### Methonds
 
-* `zip(file [, options, successCallback, errorCallback])` - Allow to zip a file or folder
+* `zip(file [, options, successCallback, errorCallback])` - Allow to zip a file or folder (__Android only__)
     * `file` - Path/To/File/Or/Folder
     * `options` - Compression options in a JS object format (Key:"value")
         * __target__: Path/To/Place/Result

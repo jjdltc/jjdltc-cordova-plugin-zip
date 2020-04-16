@@ -6,7 +6,6 @@
 
 #import "JJzip.h"
 #import <Cordova/CDV.h>
-// #import <ZipArchive/SSZipArchive.h>
 #import <SSZipArchive/SSZipArchive.h>
 
 @implementation JJzip

@@ -1,12 +1,12 @@
 {
   "name": "cordova-zip-plugin",
-  "version": "1.1.0",
+  "version": "2.0.0",
   "description": "Cordova zip compress and decompress",
   "cordova": {
     "id": "com.jjdltc.cordova.plugin.zip",
     "platforms": [
       "android",
-      "ios"      
+      "ios"
     ]
   },
   "repository": {
@@ -15,18 +15,25 @@
   },
   "keywords": [
     "cordova",
-    "zip",
-    "compress",
-    "decompress",
-    "unzip",
     "ecosystem:cordova",
     "cordova-android",
-    "cordova-ios"
+    "cordova-ios",
+    "zip",
+    "unzip",
+    "compress",
+    "decompress"
   ],
+  "scripts": {
+    "jslint": "eslint ./www/"
+  },
   "engines": {
     "cordovaDependencies": {
-      "1.1.0": { 
-        "cordova" : ">=7.0.0",
+      "1.1.0": {
+        "cordova": ">=7.0.0",
+        "cordova-ios": ">=4.4.0"
+      },
+      "2.0.0": {
+        "cordova": ">=9.0.0",
         "cordova-ios": ">=4.4.0"
       }
     }
@@ -36,5 +43,13 @@
   "bugs": {
     "url": "https://github.com/jjdltc/jjdltc-cordova-plugin-zip/issues"
   },
-  "homepage": "https://github.com/jjdltc/jjdltc-cordova-plugin-zip#readme"
+  "homepage": "https://github.com/jjdltc/jjdltc-cordova-plugin-zip#readme",
+  "devDependencies": {
+    "husky": "^4.2.5"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run jslint"
+    }
+  }
 }
