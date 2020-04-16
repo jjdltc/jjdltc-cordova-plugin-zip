@@ -2,10 +2,10 @@
 <!--
 The MIT License (MIT)
 Copyright (c) 2015 Joel De La Torriente - jjdltc - https://github.com/jjdltc
-See a full copy of license in the root folder of the project 
+See a full copy of license in the root folder of the project
 -->
 
-<plugin 
+<plugin
     xmlns="http://apache.org/cordova/ns/plugins/1.0"
     id="com.jjdltc.cordova.plugin.zip"
     version="2.0.0">
@@ -13,7 +13,7 @@ See a full copy of license in the root folder of the project
     <name>JJzip</name>
     <description>Cordova zip compress and decompress</description>
     <author>Joel De La Torriente - jjdltc@gmail.com - https://github.com/jjdltc</author>
-    <license>MIT</license>    
+    <license>MIT</license>
     <keywords>cordova,zip,compress,decompress,unzip</keywords>
     <repo>https://github.com/jjdltc/jjdltc-cordova-plugin-zip.git</repo>
     <issue>https://github.com/jjdltc/jjdltc-cordova-plugin-zip/issues</issue>
@@ -53,5 +53,26 @@ See a full copy of license in the root folder of the project
                 <pod name="SSZipArchive" spec="~> 2.1.4" />
             </pods>
         </podspec>
+    </platform>
+
+    <platform name="browser">
+      <config-file target="config.xml" parent="/*">
+          <feature name="JJzip">
+              <param name="browser-package" value="JJzip"/>
+          </feature>
+      </config-file>
+      <!-- Required for browserify: we always link module below as there is conditional reference
+      to this module from requestFileSystem and resolveLocalFileSystemURI modules. -->
+      <js-module src="www/browser/isChrome.js" name="isChrome">
+          <runs />
+      </js-module>
+
+      <js-module name="JSZip" src="src/browser/jszip.min.js">
+        <clobbers target="JSZip"/>
+      </js-module>
+      
+      <js-module src="src/browser/JJzip.js" name="JJzipProxy">
+          <runs/>
+      </js-module>
     </platform>
 </plugin>
