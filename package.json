@@ -3,7 +3,7 @@
   "version": "2.0.0",
   "description": "Cordova zip compress and decompress",
   "cordova": {
-    "id": "com.jjdltc.cordova.plugin.zip",
+    "id": "cordova-zip-plugin",
     "platforms": [
       "android",
       "ios"
