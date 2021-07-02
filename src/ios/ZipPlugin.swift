@@ -9,6 +9,7 @@ import Foundation
 import SSZipArchive
 
 
+// ZipPlugin class.
 @objc(ZipPlugin) class ZipPlugin : CDVPlugin {
   
     //zip Method.
@@ -16,6 +17,7 @@ import SSZipArchive
         let pluginResult = CDVPluginResult(status: CDVCommandStatus_OK, messageAsString: "Hi compress")
         commandDelegate.send(pluginResult, callbackId: command?.callbackId)
     }
+
 
 //unzip Method.
   func unzip(_ command: CDVInvokedUrlCommand?) {
@@ -38,7 +40,6 @@ import SSZipArchive
     let pluginResult = CDVPluginResult(status: CDVCommandStatus_OK, messageAsDictionary: responseObj)
     commandDelegate.send(pluginResult, callbackId: command?.callbackId)
 }
-
 
 // getsource method.
 func getSourceDictionary(_ sourceString: String?) -> [AnyHashable : Any]? {
