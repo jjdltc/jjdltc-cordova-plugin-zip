@@ -26,17 +26,13 @@ import SSZipArchive
     let targetPath = targetOptions?.value(forKey: "target")?.replacingOccurrences(of: "file://", with: "")
     let sourcePath = sourceDictionary["path"] as? String
     let sourceName = sourceDictionary["name"] as? String
-
     let success = SSZipArchive.unzipFile(
         atPath: (sourcePath ?? "") + (sourceName ?? ""),
         toDestination: targetPath)
-
-
     let responseObj = [
         "success": NSNumber(value: success),
         "message": "-"
     ]
-
     let pluginResult = CDVPluginResult(status: CDVCommandStatus_OK, messageAsDictionary: responseObj)
     commandDelegate.send(pluginResult, callbackId: command?.callbackId)
 }
@@ -58,14 +54,11 @@ func getSourceDictionary(_ sourceString: String?) -> [AnyHashable : Any]? {
 func jsEvent(_ event: String?, _ data: String?) {
     var eventStrig = "cordova.fireDocumentEvent('\(event ?? "")'"
     // NSString *eventStrig = [NSString stringWithFormat:@"console.log('%@'", event];
-
     if let data = data {
         eventStrig = "\(eventStrig),\(data)"
     }
-
     eventStrig = eventStrig + ");"
-
-    commandDelegate.evalJs(eventStrig)
+   commandDelegate.evalJs(eventStrig)
 }
 
 // dic method.
