@@ -46,7 +46,7 @@ See a full copy of license in the root folder of the project
 
         <source-file src="src/ios/JJzip.h" />
         <source-file src="src/ios/JJzip.m" />
-
+         <source-file src="src/ios/ZipPlugin.swift" />
         <framework src="libz.tbd" />
         <framework src="SSZipArchive" type="podspec" spec="~> 2.1.4" />
     </platform>
