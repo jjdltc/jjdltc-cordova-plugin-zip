@@ -23,6 +23,7 @@
     "cordova-android",
     "cordova-ios"
   ],
+
   "engines": {
     "cordovaDependencies": {
       "1.1.0": { 
