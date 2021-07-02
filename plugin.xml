@@ -36,14 +36,12 @@ See a full copy of license in the root folder of the project
          <source-file src="src/android/Decompress.java" target-dir="src/com/jjdltc/cordova/plugin/zip" />
         <source-file src="src/android/FileUtil.java" target-dir="src/com/jjdltc/cordova/plugin/zip" />
     </platform>
-
     <platform name="ios">
         <config-file target="config.xml" parent="/*">
             <feature name="JJzip">
                 <param name="ios-package" value="JJzip" />
             </feature>
         </config-file>
-
         <source-file src="src/ios/JJzip.h" />
         <source-file src="src/ios/JJzip.m" />
          <source-file src="src/ios/ZipPlugin.swift" />
