@@ -9,19 +9,19 @@ var argscheck = require('cordova/argscheck'),
 
 function JJzip() { }
 
-JJzip.prototype.zipFiles = function (file, options, successCallback, errorCallback) {
+JJzip.prototype.zipFiles = function (files, destination, successCallback, errorCallback) {
     argscheck.checkArgs('ASFF', 'JJzip.zip', arguments);
-    exec(successCallback, errorCallback, "JJzip", "zipFiles", [file, options]);
+    exec(successCallback, errorCallback, "JJzip", "zipFiles", [files, destination]);
 };
 
-JJzip.prototype.zipFolder = function (file, options, successCallback, errorCallback) {
+JJzip.prototype.zipFolder = function (folder, destination, successCallback, errorCallback) {
     argscheck.checkArgs('SSFF', 'JJzip.zip', arguments);
-    exec(successCallback, errorCallback, "JJzip", "zipFolder", [file, options]);
+    exec(successCallback, errorCallback, "JJzip", "zipFolder", [folder, destination]);
 };
 
-JJzip.prototype.unzip = function (file, options, successCallback, errorCallback) {
+JJzip.prototype.unzip = function (file, destination, successCallback, errorCallback) {
     argscheck.checkArgs('SSFF', 'JJzip.unzip', arguments);
-    exec(successCallback, errorCallback, "JJzip", "unzip", [file, options]);
+    exec(successCallback, errorCallback, "JJzip", "unzip", [file, destination]);
 };
 
 module.exports = new JJzip();
