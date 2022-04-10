@@ -37,7 +37,7 @@ window.JJzip.zipFolder(
 
 ### Zip Files
 
-`zipFolder(files, destination, successCallback, errorCallback])`
+`zipFiles(files, destination, successCallback, errorCallback])`
 
 Creates a flat ZIP file with all the given files. Example: 
 
