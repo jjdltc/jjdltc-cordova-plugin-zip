@@ -11,8 +11,25 @@
 @implementation JJzip
 
 - (void)zip:(CDVInvokedUrlCommand*)command {
-    CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:@"Hi compress"];
-    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];    
+    NSDictionary *sourceDictionary = [self getSourceDictionary:[command argumentAtIndex:0]];
+    NSData *targetOptions = [command argumentAtIndex:1];
+    NSString *targetPath = [[targetOptions valueForKey:@"target"] stringByReplacingOccurrencesOfString:@"file://" withString:@""];
+    NSString *sourcePath = [sourceDictionary objectForKey:@"path"];
+    NSString *sourceName = [sourceDictionary objectForKey:@"name"];
+    NSString *targetName = [[targetOptions valueForKey:@"name"] stringByAppendingString: @".zip"];
+
+    BOOL success = [SSZipArchive
+                    createZipFileAtPath:[targetPath stringByAppendingString:targetName ]
+                    withContentsOfDirectory:[sourcePath stringByAppendingString:sourceName] ];
+    
+    
+    NSDictionary *responseObj = @{
+                                  @"success" : [NSNumber numberWithBool:success],
+                                  @"message" : @"-"
+                                  };
+    
+    CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:responseObj];
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
 
 - (void)unzip:(CDVInvokedUrlCommand*)command {
@@ -72,3 +89,4 @@
 }
 
 @end
+
