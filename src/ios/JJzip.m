@@ -15,12 +15,12 @@
     NSData *targetOptions = [command argumentAtIndex:1];
     NSString *targetPath = [[targetOptions valueForKey:@"target"] stringByReplacingOccurrencesOfString:@"file://" withString:@""];
     NSString *sourcePath = [sourceDictionary objectForKey:@"path"];
-    NSString *sourceName = [sourceDictionary objectForKey:@"name"];
+    // NSString *sourceName = [sourceDictionary objectForKey:@"name"];
     NSString *targetName = [[targetOptions valueForKey:@"name"] stringByAppendingString: @".zip"];
 
     BOOL success = [SSZipArchive
                     createZipFileAtPath:[targetPath stringByAppendingString:targetName ]
-                    withContentsOfDirectory:[sourcePath stringByAppendingString:sourceName] ];
+                    withContentsOfDirectory:sourcePath ];
     
     
     NSDictionary *responseObj = @{
