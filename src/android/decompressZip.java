@@ -12,80 +12,50 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.file.Paths;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
-public class decompressZip {
+public class DecompressZip {
+    private static final int BUFFER_SIZE = 2048;
 
-    private String sourceEntry  = "";
-    private String targetPath   = "";
-    private final int BUFFER_SIZE = 2048;
+    private final String zipPath;
+    private final byte[] buffer = new byte[BUFFER_SIZE];
 
-    public decompressZip(JSONObject opts) {
-        this.sourceEntry    = opts.optString("sourceEntry");
-        this.targetPath     = opts.optString("targetPath");
+    public DecompressZip(final String zipPath) {
+        this.zipPath = zipPath;
     }
     
-    public boolean unZip(){
-        boolean result = false;
-        try {
-            result = this.doUnZip(this.targetPath);
-        } catch (IOException e) {
-            result = false;
-        }
-        return result;
-    }
-    
-    /**
-     * Extracts a zip file to a given path
-     * @param actualTargetPath  Path to un-zip
-     * @throws IOException
-     */ 
-    public boolean doUnZip(String actualTargetPath) throws IOException{
-        File target = new File(actualTargetPath);
+    public void unzip(final String targetPath) throws IOException{
+        File target = new File(targetPath);
         if (!target.exists()) {
             target.mkdirs();
         }
         
-        ZipInputStream zipFl= new ZipInputStream(new FileInputStream(this.sourceEntry));
-        ZipEntry entry      = zipFl.getNextEntry();
-        
-        while (entry != null) {
-            String filePath = actualTargetPath + (actualTargetPath.endsWith("/") ? entry.getName() : File.separator + entry.getName());
-            if (entry.isDirectory()) {
-                //This part doesn't seem to be fired
-                File path = new File(filePath);
-                path.mkdir();
-            } else {
-                //That is why we check here if the target dir exists
+        try (ZipInputStream zipFl= new ZipInputStream(new FileInputStream(this.zipPath))) {
+            ZipEntry entry      = zipFl.getNextEntry();
+
+            while (entry != null) {
+                String filePath = target.getAbsolutePath() + File.separator + entry.getName();
                 File targetDir = new File(filePath.substring(0, filePath.lastIndexOf("/")));
 
                 if (!targetDir.exists()) {
                     targetDir.mkdirs();
                 }
-                
+
                 extractFile(zipFl, filePath);
+                zipFl.closeEntry();
+                entry = zipFl.getNextEntry();
             }
-            zipFl.closeEntry();
-            entry = zipFl.getNextEntry();
         }
-        zipFl.close();
-        return true;
     }
 
-    /**
-     * Extracts a file
-     * @param zipIn
-     * @param filePath
-     * @throws IOException
-     */
     private void extractFile(ZipInputStream zipFl, String filePath) throws IOException {
-        BufferedOutputStream buffer = new BufferedOutputStream(new FileOutputStream(filePath));
-        byte[] bytesIn = new byte[this.BUFFER_SIZE];
-        int read = 0;
-        while ((read = zipFl.read(bytesIn)) != -1) {
-            buffer.write(bytesIn, 0, read);
+        try (BufferedOutputStream output = new BufferedOutputStream(new FileOutputStream(filePath))) {
+            int read = 0;
+            while ((read = zipFl.read(buffer)) != -1) {
+                output.write(buffer, 0, read);
+            }
         }
-        buffer.close();
     }
 }

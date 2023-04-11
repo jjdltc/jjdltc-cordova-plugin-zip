@@ -7,8 +7,8 @@ See a full copy of license in the root folder of the project
 
 <plugin 
     xmlns="http://apache.org/cordova/ns/plugins/1.0"
-    id="com.jjdltc.cordova.plugin.zip"
-    version="2.0.0">
+    id="cordova-zip-plugin"
+    version="3.0.0">
 
     <name>JJzip</name>
     <description>Cordova zip compress and decompress</description>
@@ -30,8 +30,8 @@ See a full copy of license in the root folder of the project
         </config-file>
 
         <source-file src="src/android/JJzip.java" target-dir="src/com/jjdltc/cordova/plugin/zip" />
-        <source-file src="src/android/compressZip.java" target-dir="src/com/jjdltc/cordova/plugin/zip" />
-        <source-file src="src/android/decompressZip.java" target-dir="src/com/jjdltc/cordova/plugin/zip" />
+        <source-file src="src/android/CompressZip.java" target-dir="src/com/jjdltc/cordova/plugin/zip" />
+        <source-file src="src/android/DecompressZip.java" target-dir="src/com/jjdltc/cordova/plugin/zip" />
     </platform>
 
     <platform name="ios">
@@ -50,7 +50,7 @@ See a full copy of license in the root folder of the project
                 <source url="https://github.com/CocoaPods/Specs.git"/>
             </config>
             <pods use-frameworks="true">
-                <pod name="SSZipArchive" spec="~> 2.1.4" />
+                <pod name="SSZipArchive" spec="~> 2.4.2" />
             </pods>
         </podspec>
     </platform>

@@ -10,65 +10,69 @@
 
 @implementation JJzip
 
-- (void)zip:(CDVInvokedUrlCommand*)command {
-    CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:@"Hi compress"];
-    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];    
+- (void)zipFolder:(CDVInvokedUrlCommand*)command {
+    NSString *sourceFolder = [NSURL URLWithString:[command argumentAtIndex:0]].path;
+    NSString *targetFile = [NSURL URLWithString:[command argumentAtIndex:1]].path;
+
+    [self.commandDelegate runInBackground:^{
+        BOOL success = [SSZipArchive
+                        createZipFileAtPath:targetFile
+                        withContentsOfDirectory:sourceFolder];
+        
+        CDVPluginResult* pluginResult;
+        if (success) {
+            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
+        } else {
+            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
+        }
+
+        [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+    }];
+}
+
+- (void)zipFiles:(CDVInvokedUrlCommand*)command {
+    NSArray *sourceFileUrls = [command argumentAtIndex:0];
+    NSString *targetFile = [NSURL URLWithString:[command argumentAtIndex:1]].path;
+    
+    NSMutableArray* sourceFiles = [NSMutableArray new];
+    for (NSString *sourceFileUrl in sourceFileUrls) {
+        [sourceFiles addObject:[NSURL URLWithString:sourceFileUrl].path];
+    }
+
+    [self.commandDelegate runInBackground:^{
+        BOOL success = [SSZipArchive
+                        createZipFileAtPath:targetFile
+                        withFilesAtPaths:sourceFiles];
+        
+        CDVPluginResult* pluginResult;
+        if (success) {
+            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
+        } else {
+            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
+        }
+
+        [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+    }];
 }
 
 - (void)unzip:(CDVInvokedUrlCommand*)command {
-    NSDictionary *sourceDictionary = [self getSourceDictionary:[command argumentAtIndex:0]];
-    NSData *targetOptions = [command argumentAtIndex:1];
-    NSString *targetPath = [[targetOptions valueForKey:@"target"] stringByReplacingOccurrencesOfString:@"file://" withString:@""];
-    NSString *sourcePath = [sourceDictionary objectForKey:@"path"];
-    NSString *sourceName = [sourceDictionary objectForKey:@"name"];
+    NSString *sourceFile = [command argumentAtIndex:0];
+    NSString *targetPath = [command argumentAtIndex:1];
 
-    BOOL success = [SSZipArchive
-                    unzipFileAtPath: [sourcePath stringByAppendingString:sourceName]
-                    toDestination: targetPath];
-    
-    
-    NSDictionary *responseObj = @{
-                                  @"success" : [NSNumber numberWithBool:success],
-                                  @"message" : @"-"
-                                  };
-    
-    CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:responseObj];
-    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
-}
+    [self.commandDelegate runInBackground:^{
+        BOOL success = [SSZipArchive
+                        unzipFileAtPath: sourceFile
+                        toDestination: targetPath];
+        
+        CDVPluginResult* pluginResult;
+        if (success) {
+            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
+        } else {
+            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
+        }
 
-- (NSDictionary*)getSourceDictionary:(NSString*)sourceString{
-    NSInteger lastIndexSlash = [sourceString rangeOfString:@"/" options:NSBackwardsSearch].location;
-    NSString *path = [sourceString substringWithRange:NSMakeRange(0, lastIndexSlash+1)];
-    NSString *name = [sourceString substringFromIndex:lastIndexSlash+1];
-    NSDictionary *sourceDictionary = @{
-                                      @"path": [path stringByReplacingOccurrencesOfString:@"file://" withString:@""],
-                                      @"name": name
-                                      };
-    return sourceDictionary;
-}
-
-- (void)jsEvent:(NSString*)event:(NSString*)data{
-    NSString *eventStrig = [NSString stringWithFormat:@"cordova.fireDocumentEvent('%@'", event];
-    // NSString *eventStrig = [NSString stringWithFormat:@"console.log('%@'", event];
-    
-    if(data != nil){
-        eventStrig = [NSString stringWithFormat:@"%@,%@", eventStrig, data];
-    }
-    
-    eventStrig = [eventStrig stringByAppendingString:@");"];
-    
-    [self.commandDelegate evalJs:eventStrig];
-}
-
-- (NSString*) dictionaryToJSONString:(NSDictionary*)toCast{
-    NSError *error;
-    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:toCast options:NSJSONWritingPrettyPrinted error:&error];
-    if(!jsonData){
-        return nil;
-    }
-    else{
-        return [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
-    }
+        [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+    }];
 }
 
 @end

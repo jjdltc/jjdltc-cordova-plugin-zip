@@ -8,7 +8,9 @@
 
 @interface JJzip : CDVPlugin
 
-- (void)zip:(CDVInvokedUrlCommand*)command;
+- (void)zipFolder:(CDVInvokedUrlCommand*)command;
+
+- (void)zipFiles:(CDVInvokedUrlCommand*)command;
 
 - (void)unzip:(CDVInvokedUrlCommand*)command;
 
